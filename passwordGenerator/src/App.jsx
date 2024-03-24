@@ -17,7 +17,7 @@ function App() {
     if(charAllowed)str += "`~!@#$%^&*()[]{}'?/+-"
     
     for (let i = 1; i <= length; i++) {
-      let ch = Math.floor(Math.random()*str.length+1);
+      let ch = Math.floor(Math.random()*str.length+1)
       pass += str.charAt(ch)      
     }
 
@@ -26,29 +26,30 @@ function App() {
   },[length,charAllowed,numberAllowed,setPassword])
   
 
-  const copyPassword=useCallback(()=>{
-    passwordRef.current?.select()
+  const copyPassword = useCallback(() => {
+    passwordRef.current?.select();
+    // passwordRef.current?.setSelectionRange(0, 9);
     window.navigator.clipboard.writeText(password)
-  },
-  [password])
+  }, [password])
 
-  useEffect(()=>{passwordGenerator()},
-  [length,charAllowed,numberAllowed,passwordGenerator])
+
+  useEffect(()=>{passwordGenerator()
+  },[length,charAllowed,numberAllowed,passwordGenerator])
 
 
 
   return (
     
-    <div className='w-full max-w-md mx-auto shadow-md rounded-lg px-1 py-3 my-8 bg-gray-800
-      text-white'>
-         <h1 className='text-orange-500 text-3xl text-center my-3'>Password generator</h1>
+    <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-black" >
+               <h1 className='text-orange-500 text-xl text-center my-3'>Password generator</h1>
 
         <div className="flex shadow rounded-lg overflow-hidden mb-4">
-          <input type="text"
+          <input
+          type="text"
           value={password}
-          placeholder='Generated Password'
-          readOnly
           className='outline-none w-full py-1 px-3'
+          placeholder="Password"
+          readOnly
           ref={passwordRef} 
           />
           <button
@@ -59,43 +60,45 @@ function App() {
         <div className="flex text-sm gap-x-2">
 
           <div className="flex items-center gap-x-1">
-            <input type="range"
-            value={length}
+            <input 
+            type="range"
             min={7}
             max={20}
+            value={length}
             className='cursor-pointer' 
             onChange={(e) => {
               setLength(e.target.value)}
             }
             />
-            <label htmlFor="length" className='text-xl'>Length:{length}</label>
+            <label htmlFor="length" className='text-lg text-white'>Length:{length}</label>
           </div>
         
 
           <div className="flex items-center gap-x-1">
-            <input type="checkbox"
+            <input 
+            type="checkbox"
             defaultChecked={numberAllowed}
+            id="numberInput"
             className='cursor-pointer'
             onChange={()=>{
               setNumberAllowed((prev) => !prev)}
             }
             />
-            <label htmlFor="numbers" className='text-xl'>Numbers</label>
+            <label htmlFor="numbers" className='text-lg text-white'>Numbers</label>
           </div>
 
           <div className="flex items-center gap-x-1">
-            <input type="checkbox"
+            <input 
+            type="checkbox"
             defaultChecked={charAllowed}
+            id="characterInput"
             className='cursor-pointer'
             onChange={()=>{
-              setCharAllowed((prev) => !prev)}
-            }
+              setCharAllowed((prev) => !prev)}}
             />
-            <label htmlFor="characters" className='text-xl'>Characters</label>
+            <label htmlFor="characters" className='text-lg text-white'>Characters</label>
           </div>
-
         </div>
-
     </div>
     
   )
